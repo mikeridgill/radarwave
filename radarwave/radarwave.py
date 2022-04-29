@@ -1,6 +1,4 @@
 import numpy as np
-from numba import jit
-
 
 def read_file(filename):
     '''Reads the SeaDarQ binary file and outputs as a numpy 3d array, with dimensions: '''
@@ -9,7 +7,6 @@ def read_file(filename):
     range_num = 1024
     azimuth_num = 4096
 
-    @jit(nopython=True)
     def frame_count(az_vals):
         frame_counter = 1
         for i in range(1, len(az_vals)):
@@ -19,9 +16,9 @@ def read_file(filename):
         return frame_counter
 
 
-    @jit(nopython=True)
     def create_backscatter_matrix(range_num, azimuth_num, M_cut, az_vals, num_rows_of_M, num_frames):
-        B = np.zeros((range_num, azimuth_num, num_frames))
+        B = np.empty((range_num, azimuth_num, num_frames))
+        B[:] = np.nan
 
         frame_indx = 0
         frame_check = 0
@@ -45,7 +42,6 @@ def read_file(filename):
 
     array1d = open_binary_file(filename)
 
-
     num_rows_of_M = np.divide(np.shape(array1d)[0], (metadata_num + range_num))
     M = np.reshape(array1d, (int(num_rows_of_M), (metadata_num + range_num)))
 
@@ -64,7 +60,8 @@ def read_file(filename):
 
 
 
-filename = '/home/mike/Dropbox/projects/radarwave/resources/data/20161201101232.drq'
+# filename = '/home/mike/Dropbox/projects/radarwave/resources/data/20161201101232.drq' # Local
+filename = '/scratch/b.mcr18crl/x_band_data/20161201101232/20161201101232.drq' # SCW
 B = read_file(filename)
 
 print(B)
