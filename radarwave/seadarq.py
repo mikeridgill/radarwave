@@ -58,10 +58,3 @@ def read_file(filename):
 
     return B
 
-
-
-# filename = '/home/mike/Dropbox/projects/radarwave/resources/data/20161201101232.drq' # Local
-filename = '/scratch/b.mcr18crl/x_band_data/20161201101232/20161201101232.drq' # SCW
-B = read_file(filename)
-
-print(B)
