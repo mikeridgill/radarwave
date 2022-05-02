@@ -1,2 +1,0 @@
-* RadarWave
-*RadarWave* is a Python package to support using X-band radar measurements to analyse sea surface waves.
