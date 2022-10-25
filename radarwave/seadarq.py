@@ -58,3 +58,6 @@ def read_file(filename):
 
     return B
 
+
+def test_func():
+    print('Yes, test_func is working!')
